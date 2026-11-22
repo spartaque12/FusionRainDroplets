@@ -19,7 +19,7 @@ Snow is not ported.
 
 - gta4-rtx with the lens values (xoxor4d/gta4-rtx#192). It writes what the game asks the lens for (rain, blood, splashes, the fountain spray, the game's frame time) as game values.
 - A Remix runtime that binds effect parameters to game values (`param.<id>.gamevalue`, xoxor4d/dxvk-remix#3).
-- The Slang compiler, see below. gta4-rtx releases don't include it.
+- Optional: the Slang compiler, only needed after editing the effect's source (see below). gta4-rtx releases don't include it.
 
 ## Shader compiler
 
