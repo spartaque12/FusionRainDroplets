@@ -18,7 +18,18 @@ Snow is not ported.
 ## Requirements
 
 - gta4-rtx with the lens values (xoxor4d/gta4-rtx#192). It writes what the game asks the lens for (rain, blood, splashes, the fountain spray, the game's frame time) as game values.
-- A Remix runtime that binds effect parameters to game values (`param.<id>.gamevalue`, xoxor4d/dxvk-remix#3), with `slangc.exe` beside the runtime or the game (see the RemixFX docs).
+- A Remix runtime that binds effect parameters to game values (`param.<id>.gamevalue`, xoxor4d/dxvk-remix#3).
+- The Slang compiler, see below. gta4-rtx releases don't include it.
+
+## Shader compiler
+
+The effect ships as Slang source. The runtime compiles it to SPIR-V when the game starts and writes `lens_drops.remixfx.*.spv` and `.spv.d` files beside it. Those are a cache: they are rebuilt whenever a `.slang` or `.slangh` file is newer, and deleting them forces a rebuild. Without a compiler and without those files the effect does not load.
+
+1. Get the Windows x64 build of Slang from https://github.com/shader-slang/slang/releases (tested with 2025.10.4).
+2. Copy `slangc.exe` and its `slang*.dll` files from the archive's `bin` folder into a `slang` folder next to `GTAIV.exe` (`slang/slangc.exe`). `slang/` next to the runtime (`.trex/slang/`) works too. `slang-llvm.dll` (about 72 MB) is not needed for this effect, which leaves about 28 MB.
+3. Start the game. The first start compiles the effect, which takes a few seconds; later starts reuse the cache.
+
+If the effect is missing, `rtx-remix/logs/remix-dxvk.log` shows the compiler's messages.
 
 ## Installation
 
