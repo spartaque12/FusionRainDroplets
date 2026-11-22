@@ -23,7 +23,9 @@ Snow is not ported.
 
 ## Shader compiler
 
-The effect ships as Slang source. The runtime compiles it to SPIR-V when the game starts and writes `lens_drops.remixfx.*.spv` and `.spv.d` files beside it. Those are a cache: they are rebuilt whenever a `.slang` or `.slangh` file is newer, and deleting them forces a rebuild. Without a compiler and without those files the effect does not load.
+The folder includes the compiled `lens_drops.remixfx.<entry>.spv` files (one per pass), so the effect loads without a compiler. A runtime that finds `slangc.exe` still rebuilds them when the source is newer.
+
+The effect's source is Slang. With a compiler the runtime compiles it to SPIR-V when the game starts and writes `lens_drops.remixfx.*.spv` and `.spv.d` files beside it. Those are a cache: they are rebuilt whenever a `.slang` or `.slangh` file is newer, and deleting them forces a rebuild. Without a compiler and without those files the effect does not load.
 
 1. Get the Windows x64 build of Slang from https://github.com/shader-slang/slang/releases (tested with 2025.10.4).
 2. Copy `slangc.exe` and its `slang*.dll` files from the archive's `bin` folder into a `slang` folder next to `GTAIV.exe` (`slang/slangc.exe`). `slang/` next to the runtime (`.trex/slang/`) works too. `slang-llvm.dll` (about 72 MB) is not needed for this effect, which leaves about 28 MB.
